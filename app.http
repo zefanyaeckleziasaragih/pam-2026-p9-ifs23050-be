@@ -1,0 +1,101 @@
+@baseurl=http://localhost:8080
+@token=PASTE_TOKEN_HERE
+
+###############################################
+### Health Check
+###############################################
+GET {{baseurl}}/
+
+###
+
+###############################################
+### Auth - Login
+###############################################
+# @name Login
+POST {{baseurl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+###
+
+###############################################
+### Auth - Me (requires token)
+###############################################
+GET {{baseurl}}/auth/me
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+### Generate Usernames
+###############################################
+# @name GenerateUsernames
+POST {{baseurl}}/usernames/generate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "keyword": "dragon",
+  "style": "gaming",
+  "total": 5
+}
+
+###
+
+###############################################
+### Generate Usernames - Professional
+###############################################
+POST {{baseurl}}/usernames/generate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "keyword": "software engineer",
+  "style": "professional",
+  "total": 5
+}
+
+###
+
+###############################################
+### Generate Usernames - Cute
+###############################################
+POST {{baseurl}}/usernames/generate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "keyword": "kucing",
+  "style": "cute",
+  "total": 8
+}
+
+###
+
+###############################################
+### Get All Generated Usernames (Pagination)
+###############################################
+GET {{baseurl}}/usernames?page=1&per_page=10
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+### Get Single Generation Result
+###############################################
+GET {{baseurl}}/usernames/1
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+### Delete Generation Result
+###############################################
+DELETE {{baseurl}}/usernames/1
+Authorization: Bearer {{token}}
+
+###
